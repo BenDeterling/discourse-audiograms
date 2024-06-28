@@ -1,4 +1,4 @@
-# name: audiograms
+# name: discourse-audiograms
 # about: A plugin to add the ability to create audiograms in Discourse
 # version: 0.1
 # author: Ben Deterling
