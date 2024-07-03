@@ -47,3 +47,19 @@ Users can input their results from hearing tests by navigating to `User Preferen
 - **Editing the Audiogram Link:** The audiogram link is generated in `/audiograms/assets/javascripts/discourse/initializers/extend-for-audiograms.js`. The audiogram link uses the "poster-name:after" PluginOutlet to show users' audiograms next to their username on posts and replies. The format and contents of the link are defined in `attachAudiogramLink()`.
   
 - **Editing the Custom Header:** The custom HearingTracker header is defined in `/audiograms/assets/javascripts/discourse/connectors/extra-nav-item/extra-nav-item.hbs`. This file can be edited like any other HTML file.
+
+## Development in a Github Codespace
+
+- **Creating a Discourse Codespace:** To start using Codespaces to make changes to this plugin, you'll need to fork discourse from `https://github.com/discourse/discourse`. From the top-right dialogue option in Github, create a new Codespace and open it a new window. Next, grab this discourse-audiograms plugin and place it in the Plugins folder located at `/discourse/plugins`. Create a new bash shell using the options in the bottom right of your Codespace. Now, cd into your `/workspace/discourse/` directory. Install everything from the Gemfile using:
+  ```sh
+  bundle install --gemfile ./Gemfile
+  ```
+  You'll also need to add the a new config.hosts to the `development.rb` file located at `.../discourse/config/environments/development.rb`. At the bottom of this file directly underneath the line that says `config.hosts << /\A(([a-z0-9-]+)\.)*localhost(\:\d+)?\Z/`, add the following:
+  ```sh
+  config.hosts << /^(.*)\.app\.github\.dev$/
+  ```
+  Finally, you'll need to create an admin account using:
+  ```sh
+  bundle exec rake admin:create
+  ```
+  and following the onscreen prompts. Now, you can start your server using with `bin/ember-cli -u` from your `.../workspace/discourse/` directory. Once this is complete, you may navigate to the Ports tab in your Codespace and open the Forwarded Address for Port 4200. You'll only need to start the server for future uses of your Codespace.
