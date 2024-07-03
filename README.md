@@ -58,8 +58,8 @@ Users can input their results from hearing tests by navigating to `User Preferen
   ```sh
   config.hosts << /^(.*)\.app\.github\.dev$/
   ```
-  Finally, you'll need to create an admin account using:
+  Finally, you'll need to create an admin account from the same `.../workspace/discourse/` directory using:
   ```sh
   bundle exec rake admin:create
   ```
-  and following the onscreen prompts. Now, you can start your server using with `bin/ember-cli -u` from your `.../workspace/discourse/` directory. Once this is complete, you may navigate to the Ports tab in your Codespace and open the Forwarded Address for Port 4200. You'll only need to start the server for future uses of your Codespace.
+ Follow the onscreen prompts. Now, you can start your server using `bin/ember-cli -u` from your `.../workspace/discourse/` directory. Once this is complete, you may navigate to the Ports tab in your Codespace and open the Forwarded Address for Port 4200. You'll only need to start the server for future uses of your Codespace.
