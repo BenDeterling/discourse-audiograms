@@ -67,3 +67,5 @@ Users can input their results from hearing tests by navigating to `User Preferen
   bundle exec rake admin:create
   ```
  Follow the onscreen prompts. Now, you can start your server using `bin/ember-cli -u` from your `.../workspace/discourse/` directory. Once this is complete, you may navigate to the Ports tab in your Codespace and open the Forwarded Address for Port 4200. You'll only need to start the server for future uses of your Codespace.
+
+hi
