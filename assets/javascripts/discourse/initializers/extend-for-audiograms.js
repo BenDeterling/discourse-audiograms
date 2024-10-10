@@ -204,7 +204,7 @@ function displayAudiogram(e) {
   e.preventDefault();
   const audiogram_raw = e.target.dataset.audiogram;
   const user_id = e.target.dataset.id;
-  let audiogram_link = e.target;
+  const audiogram_link = e.target;
   const audiogram_data = JSON.parse(audiogram_raw);
   //create div to render to
   let audiogram_div = document.getElementById('audiogram-div-' + user_id);
@@ -213,14 +213,26 @@ function displayAudiogram(e) {
     audiogram_div.classList.add('audiogram-div');
     audiogram_div.id = "audiogram-div-" + user_id;
     audiogram_div.style.display = "none";
+
     audiogram_div.style.position = "absolute";
     audiogram_div.style.backgroundColor = "lightblue";
     audiogram_div.style.padding = "10px";
     audiogram_div.style.border = "1px solid black";
     audiogram_div.style.borderRadius = "5px";
-    let linkRect = audiogram_link.getBoundingClientRect();
-    audiogram_div.style.top = (linkRect.top + linkRect.height) + "px";
-    audiogram_div.style.left = linkRect.left + "px";
+
+    updateDivPosition(audiogram_div);
+
+    /*const windowWidth = window.innerWidth;
+    const divWidth = Math.min(windowWidth - 20, 450)
+    audiogram_div.style.width = divWidth + 'px';
+    audiogram_div.style.height = divWidth + 'px';
+
+    const linkRect = audiogram_link.getBoundingClientRect();
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+    audiogram_div.style.top = (linkRect.top + linkRect.height + scrollTop) + 'px';
+    audiogram_div.style.left = (linkRect.left + scrollLeft) + 'px';*/
+
     document.body.appendChild(audiogram_div);
 
     //generate plot
@@ -231,13 +243,34 @@ function displayAudiogram(e) {
       });
     });
   } else {
-    let linkRect = audiogram_link.getBoundingClientRect();
-    audiogram_div.style.top = (linkRect.top + linkRect.height) + "px";
-    audiogram_div.style.left = linkRect.left + "px";
+    /*const linkRect = audiogram_link.getBoundingClientRect();
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+    audiogram_div.style.top = (linkRect.top + linkRect.height + scrollTop) + 'px';
+    audiogram_div.style.left = (linkRect.left + scrollLeft) + 'px';
+
+    const windowWidth = window.innerWidth;
+    const divWidth = Math.min(windowWidth + 20, 600)
+    audiogram_div.style.width = divWidth + 'px';
+    audiogram_div.style.height = divWidth * (2/3) + 'px'; */
+    updateDivPosition(audiogram_div);
     audiogram_div.style.display = "block";
   };
 }
 
+//update audiogram position based on scroll, window size
+function updateDivPosition(audiogram_div) {
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+
+  // Calculate the new position based on scroll
+  const newTop = window.innerHeight / 2 + scrollTop;
+  const newLeft = window.innerWidth / 2 + scrollLeft;
+
+  // Update the position of the div
+  audiogram_div.style.top = newTop + 'px';
+  audiogram_div.style.left = newLeft + 'px';
+}
 
 //build audiogram plot using highcharts
 function buildAudiogram(le_hlt, re_hlt, container) {
@@ -431,6 +464,7 @@ function buildAudiogram(le_hlt, re_hlt, container) {
 export default {
   name: "extend-for-audiograms",
   initialize(container) {
+    const foo = 'bar';
     const siteSettings = container.lookup("service:site-settings");
     if (siteSettings.audiograms_enabled) {
       withPluginApi("0.1", (api) => attachAudiogramLink(api, siteSettings));
