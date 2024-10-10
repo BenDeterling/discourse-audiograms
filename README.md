@@ -58,6 +58,10 @@ Users can input their results from hearing tests by navigating to `User Preferen
   ```sh
   config.hosts << /^(.*)\.app\.github\.dev$/
   ```
+  Next, create your local database using:
+  ```sh
+  bin/rails db:create
+  ```
   Finally, you'll need to create an admin account from the same `.../workspace/discourse/` directory using:
   ```sh
   bundle exec rake admin:create
